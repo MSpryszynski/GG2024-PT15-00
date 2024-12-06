@@ -5,6 +5,7 @@ from plotting.plot import draw
 from productions.p0 import P0
 from productions.p1 import P1
 from productions.p2 import P2
+from tests import T5, T6, T8
 
 
 def example():
@@ -41,3 +42,6 @@ def example():
 
 if __name__ == "__main__":
     example()
+    T5.run()
+    T6.run()
+    T8.run()
