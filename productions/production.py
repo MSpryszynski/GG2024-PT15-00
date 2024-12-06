@@ -15,6 +15,9 @@ class Production:
                 v = left.ordered_nodes.index(v)
                 u = left.ordered_nodes.index(u)
                 graph.remove_edge(ordered_nodes_update[u], ordered_nodes_update[v])
+            for node in left.get_nodes():
+                if node.hyper:
+                    graph.remove_node(ordered_nodes_update[left.ordered_nodes.index(node)])
             for i, node in ordered_nodes_update.items():
                 left.ordered_nodes[i] = node
             right: Graph = self.right_side(left)

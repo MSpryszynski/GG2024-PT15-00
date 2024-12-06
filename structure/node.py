@@ -7,3 +7,5 @@ class Node:
     y: float
     label: str
     h: bool = False
+    hyper: bool = False
+    hyper_r: bool = False

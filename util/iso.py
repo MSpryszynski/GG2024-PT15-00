@@ -3,7 +3,8 @@ import networkx as nx
 
 
 def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph) -> list[dict]:
-    matcher = GraphMatcher(graph, subgraph)
+    matcher = GraphMatcher(graph, subgraph,
+                           node_match=lambda u, v: u["h"] == v["h"] and u["hyper_r"] == v["hyper_r"])
     processed_nodes = set()
     mappings_to_process = []
     for iso_map in matcher.subgraph_isomorphisms_iter():

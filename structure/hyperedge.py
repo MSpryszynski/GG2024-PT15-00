@@ -4,7 +4,7 @@ from structure.node import Node
 
 
 @dataclass(frozen=True)
-class Edge:
+class HyperEdge:
     nodes: Set[Node]
     label: str
     b: bool = False

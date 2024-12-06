@@ -1,7 +1,7 @@
 from structure.graph import Graph
 from productions.production import Production
 from structure.node import Node
-from structure.edge import Edge
+from structure.hyperedge import HyperEdge
 
 
 class P0(Production):
@@ -19,7 +19,7 @@ class P0(Production):
             (n1, n2), (n2, n3), (n3, n4), (n4, n1)
         ]
         for u, v in edges:
-            g.add_edge(Edge((u, v), "E"))
+            g.add_edge(HyperEdge((u, v), "E"))
         return g
 
     @staticmethod
@@ -41,6 +41,6 @@ class P0(Production):
         ]
 
         for u, v in edges:
-            g.add_edge(Edge((u, v), "E"))
+            g.add_edge(HyperEdge((u, v), "E"))
 
         return g

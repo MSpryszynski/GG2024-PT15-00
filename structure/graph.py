@@ -1,6 +1,6 @@
 import networkx as nx
 
-from structure.edge import Edge
+from structure.hyperedge import HyperEdge
 from structure.node import Node
 
 
@@ -10,15 +10,27 @@ class Graph:
         self._G = nx.Graph()
 
     def add_node(self, node: Node) -> None:
-        self._G.add_node(node)
+        self._G.add_node(node, h=node.h, hyper_r=node.hyper_r)
         self.ordered_nodes.append(node)
+
+    def remove_node(self, node: Node):
+        self._G.remove_node(node)
 
     def get_nodes(self):
         return self._G.nodes
 
-    def add_edge(self, edge: Edge):
+    def add_edge(self, edge: HyperEdge):
         u, v = edge.nodes
         self._G.add_edge(u, v)
+
+    def add_hyper_edge(self, edge: HyperEdge):
+        nodes = edge.nodes
+        x = sum([node.x for node in nodes]) / len(nodes)
+        y = sum([node.y for node in nodes]) / len(nodes)
+        hyper_node = Node(x, y, "Q", False, True, edge.r)
+        self.add_node(hyper_node)
+        for node in edge.nodes:
+            self._G.add_edge(hyper_node, node)
 
     def remove_edge(self, u: Node, v: Node):
         self._G.remove_edge(u, v)
