@@ -6,6 +6,9 @@ from productions.p0 import P0
 from productions.p1 import P1
 from productions.p2 import P2
 from tests import T5, T6, T8
+from tests.t13 import T13
+from tests.t14 import T14
+from tests.t15 import T15
 
 
 def example():
@@ -45,3 +48,6 @@ if __name__ == "__main__":
     T5.run()
     T6.run()
     T8.run()
+    T13.run()
+    T14.run()
+    T15.run()
