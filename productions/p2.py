@@ -28,6 +28,7 @@ class P2(Production):
     @staticmethod
     def right_side(left: Graph):
         n1, n2, n3, n4, n5, n6 = left.ordered_nodes
+        n5.h = False
         g = Graph()
 
         n6 = Node((n1.x + n2.x) / 2, (n1.y + n2.y) / 2, "N6", True)

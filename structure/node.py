@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True)
+@dataclass
 class Node:
     x: float
     y: float
@@ -9,3 +9,6 @@ class Node:
     h: bool = False
     hyper: bool = False
     hyper_r: bool = False
+
+    def __hash__(self):
+        return hash((self.x, self.y, self.label))
