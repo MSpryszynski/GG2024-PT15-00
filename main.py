@@ -5,6 +5,7 @@ from tests.t16 import T16
 from tests.t2 import T2
 from tests.t3 import T3
 from tests.t4 import T4
+from tests.t7 import T7
 from tests.t13 import T13
 from tests.t14 import T14
 from tests.t15 import T15
@@ -18,6 +19,7 @@ if __name__ == "__main__":
     T4.run()
     T5.run()
     T6.run()
+    T7.run()
     T8.run()
     T9.run()
     T10.run()
