@@ -21,13 +21,14 @@ class T8(Test):
         for n in [n1, n2, n3, n4, n5, n6, n7]:
             g.add_node(n)
 
+        b2 = True
 
         edges = [
-            (n2, n5), (n5, n3)
+            (n2, n5, b2), (n5, n3, b2)
         ]
 
-        for u, v in edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, b in edges:
+            g.add_edge(HyperEdge([u, v], "E", b=b))
 
         hyper_edges = [
             [(n1, n2, n3, n4), False], [(n5, n6, n7, n3), True]
@@ -35,10 +36,10 @@ class T8(Test):
 
         for nodes, r in hyper_edges:
             u, v, w, x = nodes
-            g.add_hyper_edge(HyperEdge((u, v, w, x), "Q", r=r))
+            g.add_hyper_edge(HyperEdge([u, v, w, x], "Q", r=r))
 
-        draw(g)
+        draw(g, True)
         P8().apply(g)
-        draw(g)
+        draw(g, True)
         P8().apply(g)
-        draw(g)
+        draw(g, True)

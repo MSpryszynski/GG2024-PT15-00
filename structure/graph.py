@@ -30,17 +30,19 @@ class Graph:
         nodes = edge.nodes
         x = sum([node.x for node in nodes]) / len(nodes)
         y = sum([node.y for node in nodes]) / len(nodes)
-        hyper_node = Node(x, y, "Q", False, True, edge.r)
+        hyper_node = Node(x, y, f"Q-{x}-{y}", False, True, edge.r)
         self.add_node(hyper_node)
         for node in edge.nodes:
-            self._G.add_edge(hyper_node, node)
-            self.dict_edges[(hyper_node.label, node.label)] = edge
-            self.dict_edges[(node.label, hyper_node.label)] = edge
+            he = HyperEdge([hyper_node, node], f"{hyper_node.label}-{node.label}")
+            self.add_edge(he)
+
+    def get_edge(self, u: Node, v: Node) -> HyperEdge:
+        return self.dict_edges[(u.label, v.label)]
 
     def remove_edge(self, u: Node, v: Node):
         self._G.remove_edge(u, v)
-        del self.dict_edges[(u.label,v.label)]
-        del self.dict_edges[(v.label,u.label)]
+        del self.dict_edges[(u.label, v.label)]
+        del self.dict_edges[(v.label, u.label)]
 
     def get_edges(self):
         return self._G.edges
