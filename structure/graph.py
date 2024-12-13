@@ -7,15 +7,17 @@ from structure.node import Node
 class Graph:
     def __init__(self):
         self.ordered_nodes: list[Node] = []
-        self.dict_edges: dict = dict()
+        self.dict_edges: dict[(str, str), HyperEdge] = dict()
         self._G = nx.Graph()
 
     def add_node(self, node: Node) -> None:
         self._G.add_node(node, h=node.h, hyper_r=node.hyper_r)
-        self.ordered_nodes.append(node)
+        if node not in self.ordered_nodes:
+            self.ordered_nodes.append(node)
 
     def remove_node(self, node: Node):
         self._G.remove_node(node)
+        self.ordered_nodes.remove(node)
 
     def get_nodes(self):
         return self._G.nodes
