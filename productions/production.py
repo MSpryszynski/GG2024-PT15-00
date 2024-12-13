@@ -20,7 +20,7 @@ class Production:
                     graph.remove_node(ordered_nodes_update[left.ordered_nodes.index(node)])
             for i, node in ordered_nodes_update.items():
                 left.ordered_nodes[i] = node
-            right: Graph = self.right_side(left)
+            right: Graph = self.right_side(left, iso_map)
             for node in right.get_nodes():
                 graph.add_node(node)
             for u, v in right.get_edges():
@@ -31,5 +31,5 @@ class Production:
         raise NotImplementedError
 
     @staticmethod
-    def right_side(left):
+    def right_side(left, iso_map):
         raise NotImplementedError

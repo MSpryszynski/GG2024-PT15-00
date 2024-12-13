@@ -43,10 +43,10 @@ class P6(Production):
         n1, n2, n3, n4, n5, n6, n7, n8, q = left.ordered_nodes
         g = Graph()
 
-        n5 = Node(n5.x, n5.y, "N5")
-        n6 = Node(n6.x, n6.y, "N6")
-        n7 = Node(n7.x, n7.y, "N7")
-        n8 = Node(n8.x, n8.y, "N8")
+        n5.h = False
+        n6.h = False
+        n7.h = False
+        n8.h = False
 
         x, y = get_middle_node_coords([n1, n2, n3, n4])
         n9 = Node(x, y, "N9")

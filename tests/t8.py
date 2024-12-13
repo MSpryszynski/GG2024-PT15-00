@@ -15,8 +15,8 @@ class T8(Test):
         n3 = Node(1, 1, "N3")
         n4 = Node(0, 1, "N4")
         n5 = Node(1, 0.5, "N5", True)
-        n6 = Node(2, 0.5, "N6", True)
-        n7 = Node(2, 1, "N7", True)
+        n6 = Node(2, 0.5, "N6")
+        n7 = Node(2, 1, "N7")
 
         for n in [n1, n2, n3, n4, n5, n6, n7]:
             g.add_node(n)

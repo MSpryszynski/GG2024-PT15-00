@@ -22,12 +22,12 @@ class T5(Test):
             g.add_node(n)
 
         edges = [
-            (n1, n6), (n6, n2), (n2, n5), (n5, n3),
-            (n3, n4), (n4, n7), (n7, n1)
+            (n1, n6, True), (n6, n2, True), (n2, n5, True), (n5, n3, True),
+            (n3, n4, True), (n4, n7, True), (n7, n1, True)
         ]
 
-        for u, v in edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, b in edges:
+            g.add_edge(HyperEdge((u, v), "E", b=b))
 
         hyper_edge = HyperEdge((n1, n2, n3, n4), 'E', r=True)
         g.add_hyper_edge(hyper_edge)

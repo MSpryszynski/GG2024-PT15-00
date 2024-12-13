@@ -41,12 +41,19 @@ class P5(Production):
         n1, n2, n3, n4, n5, n6, n7, q = left.ordered_nodes
         g = Graph()
 
-        n5 = Node(n5.x, n5.y, "N5")
-        n6 = Node(n6.x, n6.y, "N6")
-        n7 = Node(n7.x, n7.y, "N7")
+        n5.h = False
+        n6.h = False
+        n7.h = False
 
         x, y = get_middle_node_coords([n3, n4])
-        # n8 needs ~B3 so need to get hyper_edge between n3 and n4
+        b1 = left.dict_edges.get((n1.label, n6.label))
+        b2 = left.dict_edges.get((n2.label, n5.label))
+        b3 = left.dict_edges.get((n3.label, n4.label))
+        b4 = left.dict_edges.get((n1.label, n7.label))
+        # print(b1)
+        # print(b2)
+        # print(b3)
+        # print(b4)
         n8 = Node(x, y, "N8")
         x, y = get_middle_node_coords([n1, n2, n3, n4])
         n9 = Node(x, y, "N9")
@@ -57,13 +64,13 @@ class P5(Production):
         # edges need changes because boundaries have to be set
         # everything what has B1, B2, B3 or B4 on the right side need to be changed
         edges = [
-            (n1, n6), (n6, n2), (n2, n5), (n5, n3),
-            (n3, n8), (n8, n4), (n4, n7), (n7, n1),
-            (n5, n9), (n6, n9), (n7, n9), (n8, n9),
+            (n1, n6, b1.b), (n6, n2, b1.b), (n2, n5, b2.b), (n5, n3, b2.b),
+            (n3, n8, b3.b), (n8, n4, b3.b), (n4, n7, b4.b), (n7, n1, b4.b),
+            (n5, n9, False), (n6, n9, False), (n7, n9, False), (n8, n9, False),
         ]
 
-        for u, v in edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, b in edges:
+            g.add_edge(HyperEdge((u, v), "E", b=b))
 
         hyper_edges = [
             (n1, n6, n9, n7), (n6, n2, n5, n9),

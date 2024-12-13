@@ -40,7 +40,7 @@ class P8(Production):
 
     @staticmethod
     def right_side(left: Graph) -> Graph:
-        n1, n2, n3, n4, n5, n6, n7, q = left.ordered_nodes
+        n1, n2, n3, n4, n5, n6, n7, q1, q2 = left.ordered_nodes
         g = Graph()
 
         for n in [n1, n2, n3, n4, n5, n6, n7]:

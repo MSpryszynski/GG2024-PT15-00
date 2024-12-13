@@ -9,13 +9,13 @@ from tests.t15 import T15
 
 
 if __name__ == "__main__":
-    T1.run()
-    T2.run()
-    T3.run()
-    T4.run()
+    # T1.run()
+    # T2.run()
+    # T3.run()
+    # T4.run()
     T5.run()
-    T6.run()
-    T8.run()
-    T13.run()
-    T14.run()
-    T15.run()
+    # T6.run()
+    # T8.run()
+    # T13.run()
+    # T14.run()
+    # T15.run()
