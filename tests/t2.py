@@ -17,7 +17,8 @@ class T2(Test):
         n5 = Node(1, 0.5, "N5", True)
         e1 = HyperEdge((n1, n2), 'E', False, False)
         e2 = HyperEdge((n1, n4), 'E', True, False)
-        e3 = HyperEdge((n2, n3), 'E', True, False)
+        e3 = HyperEdge((n2, n5), 'E', True, False)
+        e4 = HyperEdge((n5, n3), 'E', True, False)
         e5 = HyperEdge((n4, n3), 'E', False, False)
         e6 = HyperEdge((n1, n2, n3, n4), 'E', False, True)
         g.add_node(n1)
@@ -28,6 +29,7 @@ class T2(Test):
         g.add_edge(e1)
         g.add_edge(e2)
         g.add_edge(e3)
+        g.add_edge(e4)
         g.add_edge(e5)
         g.add_hyper_edge(e6)
 

@@ -17,7 +17,7 @@ class P2(Production):
             g.add_node(n)
 
         edges = [
-            (n1, n2), (n2, n3), (n3, n4), (n4, n1)
+            (n1, n2), (n2, n5), (n3, n4), (n4, n1), (n5, n3)
         ]
         for u, v in edges:
             g.add_edge(HyperEdge((u, v), "E"))
@@ -41,7 +41,7 @@ class P2(Production):
 
         edges = [
             (n1, n6, boundary_map[(n1, n2)]["boundary"]), (n6, n2, boundary_map[(n1, n2)]["boundary"]),
-            (n2, n5, boundary_map[(n2, n3)]["boundary"]), (n5, n3, boundary_map[(n2, n3)]["boundary"]),
+            (n2, n5, boundary_map[(n2, n5)]["boundary"]), (n5, n3, boundary_map[(n3, n5)]["boundary"]),
             (n3, n7, boundary_map[(n3, n4)]["boundary"]), (n7, n4, boundary_map[(n3, n4)]["boundary"]),
             (n4, n8, boundary_map[(n1, n4)]["boundary"]), (n8, n1, boundary_map[(n1, n4)]["boundary"]),
             (n5, n9, False), (n6, n9, False), (n7, n9, False), (n8, n9, False),
