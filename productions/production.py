@@ -1,10 +1,20 @@
 from structure.graph import Graph
+from structure.hyperedge import HyperEdge
 from util.iso import find_isomorphisms
+
+
+def get_boundary_map(graph: Graph):
+    boundary_map = {}
+    for u, v in graph.get_edges():
+        data = graph.get().get_edge_data(u, v)
+        boundary_map[(u, v)] = data
+    return boundary_map
 
 
 class Production:
 
     def apply(self, graph: Graph):
+        boundary_map = get_boundary_map(graph)
         for iso_map in find_isomorphisms(graph.get(), self.left_side().get()):
             left: Graph = self.left_side()
             ordered_nodes_update = {}
@@ -20,16 +30,17 @@ class Production:
                     graph.remove_node(ordered_nodes_update[left.ordered_nodes.index(node)])
             for i, node in ordered_nodes_update.items():
                 left.ordered_nodes[i] = node
-            right: Graph = self.right_side(left)
+            right: Graph = self.right_side(left.ordered_nodes, boundary_map)
             for node in right.get_nodes():
                 graph.add_node(node)
             for u, v in right.get_edges():
-                graph._G.add_edge(u, v)
+                edge_data = right.get().get_edge_data(u, v)
+                graph.add_edge(HyperEdge({u, v}, "E", edge_data["boundary"]))
 
     @staticmethod
     def left_side():
         raise NotImplementedError
 
     @staticmethod
-    def right_side(left):
+    def right_side(iso_ordered_nodes, boundary_map):
         raise NotImplementedError

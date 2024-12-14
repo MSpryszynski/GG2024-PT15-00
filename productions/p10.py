@@ -45,8 +45,8 @@ class P10(Production):
         return g
 
     @staticmethod
-    def right_side(left: Graph) -> Graph:
-        n1, n2, n3, n4, n5, n6, q = left.ordered_nodes
+    def right_side(iso_ordered_nodes, boundary_map) -> Graph:
+        n1, n2, n3, n4, n5, n6, q = iso_ordered_nodes
 
         n6.h = False
 
