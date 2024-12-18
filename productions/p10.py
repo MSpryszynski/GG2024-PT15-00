@@ -14,11 +14,11 @@ class P10(Production):
 
         # Create nodes
         nodes = [
-            Node(0, 0, "N1"),
-            Node(1, 0, "N2"),
-            Node(1, 1, "N3"),
-            Node(0, 1, "N4"),
-            Node(1.5, 0.5, "N5"),
+            Node(0, 0, "N1", h = False),
+            Node(1, 0, "N2", h = False),
+            Node(1, 1, "N3", h = False),
+            Node(0, 1, "N4", h = False),
+            Node(1.5, 0.5, "N5", h = False),
             Node(0.5, 0, "N6", h = True)
         ]
 
@@ -60,34 +60,32 @@ class P10(Production):
 
         # Create new nodes
         new_nodes = [
-            Node(x7, y7, "N7"),
-            Node(x8, y8, "N8"),
-            Node(x9, y9, "N9"),
-            Node(x10, y10, "N10"),
+            Node(x7, y7, "N7", h=not boundary_map[(n2, n5)]["boundary"]),
+            Node(x8, y8, "N8", h=not boundary_map[(n3, n5)]["boundary"]),
+            Node(x9, y9, "N9", h=not boundary_map[(n3, n4)]["boundary"]),
+            Node(x10, y10, "N10", h=not boundary_map[(n1, n4)]["boundary"]),
             Node(x11, y11, "N11", h = False)
         ]
 
         for n in new_nodes:
             g.add_node(n)
 
-        # edges need changes because boundaries have to be set
-        # everything what has B1, B2, B3, B4 or B5 on the right side need to be changed
         # Create edges
         out_edges = [
-            (n1, n6),
-            (n6, n2),
-            (n2, new_nodes[0]),
-            (new_nodes[0], n5),
-            (n5, new_nodes[1]),
-            (new_nodes[1], n3),
-            (n3, new_nodes[2]),
-            (new_nodes[2], n4),
-            (n4, new_nodes[3]),
-            (new_nodes[3], n1)
+            (n1, n6, boundary_map[(n1, n6)]["boundary"]),
+            (n6, n2, boundary_map[(n1, n6)]["boundary"]),
+            (n2, new_nodes[0], boundary_map[(n2, n5)]["boundary"]),
+            (new_nodes[0], n5, boundary_map[(n2, n5)]["boundary"]),
+            (n5, new_nodes[1], boundary_map[(n3, n5)]["boundary"]),
+            (new_nodes[1], n3, boundary_map[(n3, n5)]["boundary"]),
+            (n3, new_nodes[2], boundary_map[(n3, n4)]["boundary"]),
+            (new_nodes[2], n4, boundary_map[(n3, n4)]["boundary"]),
+            (n4, new_nodes[3], boundary_map[(n1, n4)]["boundary"]),
+            (new_nodes[3], n1, boundary_map[(n1, n4)]["boundary"])
         ]
 
-        for u, v in out_edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, b in out_edges:
+            g.add_edge(HyperEdge((u, v), "E", b=b))
 
         in_edges = [
             (new_nodes[-1], new_nodes[0]),  # n11 - n6
