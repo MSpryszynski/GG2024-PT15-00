@@ -2,9 +2,15 @@ from networkx.algorithms.isomorphism import GraphMatcher
 import networkx as nx
 
 
+def node_matcher(u, v):
+    if u["h"] is None or v["h"] is None:
+        return True
+    return u["h"] == v["h"] and u["hyper_r"] == v["hyper_r"]
+
+
 def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph) -> list[dict]:
     matcher = GraphMatcher(graph, subgraph,
-                           node_match=lambda u, v: u["h"] == v["h"] and u["hyper_r"] == v["hyper_r"])
+                           node_match=node_matcher)
     processed_nodes = set()
     mappings_to_process = []
     mappings = sorted(list(matcher.subgraph_isomorphisms_iter()), key=lambda iso: "".join(node.label for node in iso.keys()))

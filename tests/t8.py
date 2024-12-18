@@ -10,7 +10,7 @@ class T8(Test):
     @staticmethod
     def run():
         g = Graph()
-        n1 = Node(0, 0, "N1")
+        n1 = Node(0, 0, "N1", True)
         n2 = Node(1, 0, "N2")
         n3 = Node(1, 1, "N3")
         n4 = Node(0, 1, "N4")
@@ -27,7 +27,7 @@ class T8(Test):
         ]
 
         for u, v in edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+            g.add_edge(HyperEdge((u, v), "E", True))
 
         hyper_edges = [
             [(n1, n2, n3, n4), False], [(n5, n6, n7, n3), True]
@@ -37,8 +37,6 @@ class T8(Test):
             u, v, w, x = nodes
             g.add_hyper_edge(HyperEdge((u, v, w, x), "Q", r=r))
 
-        draw(g)
-        P8().apply(g)
         draw(g)
         P8().apply(g)
         draw(g)

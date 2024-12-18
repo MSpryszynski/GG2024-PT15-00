@@ -57,13 +57,22 @@ class P6(Production):
         # edges need changes because boundaries have to be set
         # everything what has B1, B2, B3 or B4 on the right side need to be changed
         edges = [
-            (n1, n6), (n6, n2), (n2, n5), (n5, n3),
-            (n3, n8), (n8, n4), (n4, n7), (n7, n1),
-            (n5, n9), (n6, n9), (n7, n9), (n8, n9),
+            (n1, n6, boundary_map[(n1, n6)]["boundary"]),
+            (n6, n2, boundary_map[(n2, n6)]["boundary"]),
+            (n2, n5, boundary_map[(n2, n5)]["boundary"]),
+            (n5, n3, boundary_map[(n3, n5)]["boundary"]),
+            (n3, n8, boundary_map[(n3, n8)]["boundary"]),
+            (n8, n4, boundary_map[(n4, n8)]["boundary"]),
+            (n4, n7, boundary_map[(n4, n7)]["boundary"]),
+            (n7, n1, boundary_map[(n1, n7)]["boundary"]),
+            (n5, n9, False),
+            (n6, n9, False),
+            (n7, n9, False),
+            (n8, n9, False),
         ]
 
-        for u, v in edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, b_param in edges:
+            g.add_edge(HyperEdge((u, v), "E", b=b_param))
 
         hyper_edges = [
             (n1, n6, n9, n7), (n6, n2, n5, n9),

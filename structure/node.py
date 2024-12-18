@@ -6,7 +6,7 @@ class Node:
     x: float
     y: float
     label: str
-    h: bool = False
+    h: bool | None = False
     hyper: bool = False
     hyper_r: bool = False
 
