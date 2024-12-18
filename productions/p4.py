@@ -27,8 +27,8 @@ class P4(Production):
         return g
 
     @staticmethod
-    def right_side(left: Graph):
-        n1, n2, n3, n4, n5, n6, n7 = left.ordered_nodes
+    def right_side(iso_ordered_nodes, boundary_map):
+        n1, n2, n3, n4, n5, n6, n7 = iso_ordered_nodes
         n5.h = False
         n6.h = False
         g = Graph()

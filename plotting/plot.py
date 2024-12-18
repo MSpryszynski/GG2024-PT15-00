@@ -15,6 +15,17 @@ def draw(g: Graph) -> None:
     nx.draw_networkx_edges(g.get(), coords, width=3, alpha=0.3)
     nx.draw_networkx_labels(g.get(), label_positions, labels)
 
+    edge_labels = {}
+    for u, v in g.get_edges():
+        if not u.hyper and not v.hyper:
+            edge = g.get().get_edge_data(u, v)
+            if "boundary" in edge:
+                edge_labels[(u, v)] = f"b={'1' if edge['boundary'] else '0'}"
+
+    nx.draw_networkx_edge_labels(
+        g.get(), pos=coords, edge_labels=edge_labels, font_size=8
+    )
+
     ax = plt.gca()
     ax.margins(0.15)
     plt.tight_layout()

@@ -7,7 +7,8 @@ def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph) -> list[dict]:
                            node_match=lambda u, v: u["h"] == v["h"] and u["hyper_r"] == v["hyper_r"])
     processed_nodes = set()
     mappings_to_process = []
-    for iso_map in matcher.subgraph_isomorphisms_iter():
+    mappings = sorted(list(matcher.subgraph_isomorphisms_iter()), key=lambda iso: "".join(node.label for node in iso.keys()))
+    for iso_map in mappings:
         nodes_of_found_mapping = set(iso_map.keys())
         mapping_applicable = True
         for node in nodes_of_found_mapping:

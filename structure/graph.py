@@ -21,7 +21,7 @@ class Graph:
 
     def add_edge(self, edge: HyperEdge):
         u, v = edge.nodes
-        self._G.add_edge(u, v)
+        self._G.add_edge(u, v, boundary=edge.b)
 
     def add_hyper_edge(self, edge: HyperEdge):
         nodes = edge.nodes
@@ -30,7 +30,7 @@ class Graph:
         hyper_node = Node(x, y, "Q", False, True, edge.r)
         self.add_node(hyper_node)
         for node in edge.nodes:
-            self._G.add_edge(hyper_node, node)
+            self._G.add_edge(hyper_node, node, boundary=False)
 
     def remove_edge(self, u: Node, v: Node):
         self._G.remove_edge(u, v)

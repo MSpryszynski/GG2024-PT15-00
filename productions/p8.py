@@ -39,8 +39,8 @@ class P8(Production):
         return g
 
     @staticmethod
-    def right_side(left: Graph) -> Graph:
-        n1, n2, n3, n4, n5, n6, n7, q = left.ordered_nodes
+    def right_side(iso_ordered_nodes, boundary_map) -> Graph:
+        n1, n2, n3, n4, n5, n6, n7, q = iso_ordered_nodes
         g = Graph()
 
         for n in [n1, n2, n3, n4, n5, n6, n7]:
