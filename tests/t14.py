@@ -1,4 +1,5 @@
 from plotting.plot import draw
+from productions.p13 import P13
 from productions.p14 import P14
 from structure.graph import Graph
 from structure.hyperedge import HyperEdge
@@ -26,13 +27,16 @@ class T14(Test):
         x9, y9 = get_middle_node_coords([n5, n3])
         n9 = Node(x9, y9, "N9", True)
 
-        e1 = HyperEdge((n1, n2), 'E', False, False)
-        e2 = HyperEdge((n1, n4), 'E', False, False)
+        e1 = HyperEdge((n1, n6), 'E', False, False)
+        e2 = HyperEdge((n6, n2), 'E', False, False)
         e3 = HyperEdge((n2, n5), 'E', False, False)
         e4 = HyperEdge((n5, n9), 'E', False, False)
-        e7 = HyperEdge((n9, n3), 'E', False, False)
-        e5 = HyperEdge((n4, n3), 'E', False, False)
-        e6 = HyperEdge((n1, n2, n3, n4, n5), 'E', False, True)
+        e5 = HyperEdge((n9, n3), 'E', False, False)
+        e6 = HyperEdge((n3, n8), 'E', True, False)
+        e7 = HyperEdge((n8, n4), 'E', True, False)
+        e8 = HyperEdge((n4, n7), 'E', False, False)
+        e9 = HyperEdge((n7, n1), 'E', False, False)
+        e10 = HyperEdge((n1, n2, n3, n4, n5), 'E', False, True)
 
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
             g.add_node(n)
@@ -42,11 +46,14 @@ class T14(Test):
         g.add_edge(e3)
         g.add_edge(e4)
         g.add_edge(e5)
+        g.add_edge(e6)
         g.add_edge(e7)
-        g.add_hyper_edge(e6)
+        g.add_edge(e8)
+        g.add_edge(e9)
+        g.add_hyper_edge(e10)
 
         draw(g)
-        P14().apply(g)
+        P13().apply(g)
         draw(g)
         P14().apply(g)
         draw(g)

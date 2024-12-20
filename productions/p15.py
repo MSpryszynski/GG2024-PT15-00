@@ -26,14 +26,17 @@ class P15(Production):
         x10, y10 = get_middle_node_coords([n5, n2])
         n10 = Node(x10, y10, "N10", True)
 
-        e1 = HyperEdge((n1, n2), 'E', False, False)
-        e2 = HyperEdge((n1, n4), 'E', False, False)
+        e1 = HyperEdge((n1, n6), 'E', False, False)
+        e2 = HyperEdge((n6, n2), 'E', False, False)
         e3 = HyperEdge((n2, n10), 'E', False, False)
-        e8 = HyperEdge((n10, n5), 'E', False, False)
-        e4 = HyperEdge((n5, n9), 'E', False, False)
-        e7 = HyperEdge((n9, n3), 'E', False, False)
-        e5 = HyperEdge((n4, n3), 'E', False, False)
-        e6 = HyperEdge((n1, n2, n3, n4, n5), 'E', False, True)
+        e4 = HyperEdge((n10, n5), 'E', False, False)
+        e5 = HyperEdge((n5, n9), 'E', False, False)
+        e6 = HyperEdge((n9, n3), 'E', False, False)
+        e7 = HyperEdge((n3, n8), 'E', False, False)
+        e8 = HyperEdge((n8, n4), 'E', False, False)
+        e9 = HyperEdge((n4, n7), 'E', False, False)
+        e10 = HyperEdge((n7, n1), 'E', False, False)
+        e11 = HyperEdge((n1, n2, n3, n4, n5), 'E', False, True)
 
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9, n10]:
             g.add_node(n)
@@ -43,9 +46,12 @@ class P15(Production):
         g.add_edge(e3)
         g.add_edge(e4)
         g.add_edge(e5)
+        g.add_edge(e6)
         g.add_edge(e7)
         g.add_edge(e8)
-        g.add_hyper_edge(e6)
+        g.add_edge(e9)
+        g.add_edge(e10)
+        g.add_hyper_edge(e11)
 
 
         return g
@@ -55,25 +61,40 @@ class P15(Production):
         n1, n2, n3, n4, n5, n6, n7, n8, nfu, nfl, q = iso_ordered_nodes
         g = Graph()
 
+        n6.h = False
+        n7.h = False
+        n8.h = False
+        nfu.h = False
+        nfl.h = False
+
         for n in [n1, n2, n3, n4, n5, n6, n7, n8]:
             g.add_node(n)
         
         # nc, aka node center, we are discarding exisitng q hyperedge
-        nc = Node(q.x, q.y, "V", True)
+        nc = Node(q.x, q.y, "V", False)
 
         outer_edges = [
-            (n1, n6), (n6, n2), (n2, nfl), (nfl, n5), (n5, nfu), (nfu, n3), (n3, n8), (n8, n4), (n4, n7), (n7, n1)
+            (n1, n6, boundary_map[(n1, n6)]["boundary"]), 
+            (n6, n2, boundary_map[(n2, n6)]["boundary"]), 
+            (n2, nfl, boundary_map[(n2, nfl)]["boundary"]), 
+            (nfl, n5, boundary_map[(n5, nfl)]["boundary"]), 
+            (n5, nfu, boundary_map[(n5, nfu)]["boundary"]), 
+            (nfu, n3, boundary_map[(n3, nfu)]["boundary"]), 
+            (n3, n8, boundary_map[(n3, n8)]["boundary"]), 
+            (n8, n4, boundary_map[(n4, n8)]["boundary"]), 
+            (n4, n7, boundary_map[(n4, n7)]["boundary"]), 
+            (n7, n1, boundary_map[(n1, n7)]["boundary"])
         ]
 
-        for u, v in outer_edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, b in outer_edges:
+            g.add_edge(HyperEdge((u, v), "E", b))
 
         hyper_edges = [
             (n1, n6, nc, n7), (n6, n2, nfl, nc), (nc, nfl, n5, nfu), (nc, nfu, n3, n8), (n7, nc, n8, n4)
         ]
 
         for u, v, w, x in hyper_edges:
-            g.add_hyper_edge(HyperEdge((u, v, w, x), "Q", r=True))
+            g.add_hyper_edge(HyperEdge((u, v, w, x), "Q", r=False))
 
         center_edges = [
             (n7, nc), (n6, nc), (nfl, nc), (nfu, nc), (n8, nc)
