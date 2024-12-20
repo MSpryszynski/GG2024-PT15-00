@@ -41,13 +41,22 @@ class P4(Production):
             g.add_node(n)
 
         edges = [
-            (n1, n6), (n6, n4), (n4, n8), (n8, n3),
-            (n3, n5), (n5, n2), (n2, n7), (n7, n1),
-            (n5, n9), (n6, n9), (n7, n9), (n8, n9),
+            (n1, n6, boundary_map[(n1, n6)]["boundary"]),
+            (n6, n4, boundary_map[(n4, n6)]["boundary"]),
+            (n4, n8, False),
+            (n8, n3, False),
+            (n3, n5, boundary_map[(n3, n5)]["boundary"]),
+            (n5, n2, boundary_map[(n2, n5)]["boundary"]),
+            (n2, n7, False),
+            (n7, n1, False),
+            (n5, n9, False),
+            (n6, n9, False),
+            (n7, n9, False),
+            (n8, n9, False),
         ]
 
-        for u, v in edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, b_param in edges:
+            g.add_edge(HyperEdge((u, v), "E", b_param))
 
         hyper_edges = [
             (n1, n7, n9, n6), (n5, n2, n7, n9),
