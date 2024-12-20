@@ -23,7 +23,7 @@ class T8(Test):
 
 
         edges = [
-            (n2, n5), (n5, n3)
+            (n2, n5), (n5, n3), (n1, n4)
         ]
 
         for u, v in edges:

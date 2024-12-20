@@ -46,23 +46,20 @@ class P5(Production):
         n7.h = False
 
         x, y = get_middle_node_coords([n3, n4])
-        # n8 needs ~B3 so need to get hyper_edge between n3 and n4
-        n8 = Node(x, y, "N8")
+        n8 = Node(x, y, "N8", h=not boundary_map[(n3, n4)]["boundary"])
         x, y = get_middle_node_coords([n1, n2, n3, n4])
         n9 = Node(x, y, "N9")
 
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
             g.add_node(n)
 
-        # edges need changes because boundaries have to be set
-        # everything what has B1, B2, B3 or B4 on the right side need to be changed
         edges = [
             (n1, n6, boundary_map[(n1, n6)]["boundary"]),
             (n6, n2, boundary_map[(n2, n6)]["boundary"]),
             (n2, n5, boundary_map[(n2, n5)]["boundary"]),
             (n5, n3, boundary_map[(n3, n5)]["boundary"]),
-            (n3, n8, False),
-            (n8, n4, False),
+            (n3, n8, boundary_map[(n3, n4)]["boundary"]),
+            (n8, n4, boundary_map[(n3, n4)]["boundary"]),
             (n4, n7, boundary_map[(n4, n7)]["boundary"]),
             (n7, n1, boundary_map[(n1, n7)]["boundary"]),
             (n5, n9, False),
