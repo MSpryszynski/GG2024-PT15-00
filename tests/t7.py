@@ -11,7 +11,7 @@ class T7(Test):
     def run():
         g = Graph()
         n1 = Node(0, 0, "N1", h=True)
-        n2 = Node(1, 0, "N2",)
+        n2 = Node(1, 0, "N2")
         n3 = Node(1, 1, "N3")
         n4 = Node(0, 1, "N4")
 
