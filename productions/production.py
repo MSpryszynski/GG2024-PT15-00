@@ -3,6 +3,13 @@ from structure.hyperedge import HyperEdge
 from util.iso import find_isomorphisms
 
 
+def get_boundary(boundary_map, u, v):
+    try:
+        return boundary_map[(u, v)]["boundary"]
+    except KeyError:
+        return boundary_map[(v, u)]["boundary"]
+
+
 def get_boundary_map(graph: Graph):
     boundary_map = {}
     for u, v in graph.get_edges():

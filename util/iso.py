@@ -13,7 +13,7 @@ def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph) -> list[dict]:
                            node_match=node_matcher)
     processed_nodes = set()
     mappings_to_process = []
-    mappings = sorted(list(matcher.subgraph_isomorphisms_iter()), key=lambda iso: "".join(node.label for node in iso.keys()))
+    mappings = sorted(list(matcher.subgraph_monomorphisms_iter()), key=lambda iso: "".join(node.label for node in iso.keys()))
     for iso_map in mappings:
         nodes_of_found_mapping = set(iso_map.keys())
         mapping_applicable = True
