@@ -54,8 +54,6 @@ class P6(Production):
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
             g.add_node(n)
 
-        # edges need changes because boundaries have to be set
-        # everything what has B1, B2, B3 or B4 on the right side need to be changed
         edges = [
             (n1, n6, boundary_map[(n1, n6)]["boundary"]),
             (n6, n2, boundary_map[(n2, n6)]["boundary"]),
