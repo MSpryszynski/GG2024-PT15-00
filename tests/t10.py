@@ -9,10 +9,11 @@ class T10(Test):
     @staticmethod
     def run():
         T10.case1()
-        T10.case2()
-        T10.case3()
-        T10.case4()
-        T10.case5()
+        # T10.case2()
+        # T10.case3()
+        # T10.case4()
+        # T10.case5()
+        # T10.case6()
 
     @staticmethod
     def case1():
@@ -96,6 +97,44 @@ class T10(Test):
 
         # Create nodes
         nodes = [
+            Node(0, 0, "N1"),
+            Node(1, 0, "N2"),
+            Node(1, 1, "N3"),
+            Node(0, 1, "N4"),
+            Node(1.5, 0.5, "N5"),
+            Node(0.5, 0, "N6", h = False)
+        ]
+
+        for n in nodes:
+            g.add_node(n)
+
+        # Create edges
+        edges = [
+            (nodes[0], nodes[5]),  # n1 - n6
+            (nodes[5], nodes[1]),  # n6 - n2
+            (nodes[1], nodes[4]),  # n2 - n5
+            (nodes[2], nodes[4]),  # n3 - n5
+            (nodes[3], nodes[2]),  # n4 - n3
+            (nodes[0], nodes[3]),  # n4 - n1
+        ]
+
+        for u, v in edges:
+            g.add_edge(HyperEdge((u, v), "E"))
+
+        # Create the hyperedge for the production
+        hyperedge = HyperEdge((nodes[0], nodes[1], nodes[2], nodes[3], nodes[4]), "P", r=True)
+        g.add_hyper_edge(hyperedge)
+
+        draw(g)
+        P10().apply(g)
+        draw(g)
+
+    @staticmethod
+    def case4():
+        g = Graph()
+
+        # Create nodes
+        nodes = [
             Node(0, 0, "N1"), #0
             Node(1, 0, "N2"), #1
             Node(1, 1, "N3"), #2
@@ -142,7 +181,7 @@ class T10(Test):
         draw(g)
 
     @staticmethod
-    def case4():
+    def case5():
         g = Graph()
 
         # Create nodes
@@ -193,7 +232,7 @@ class T10(Test):
         draw(g)
 
     @staticmethod
-    def case5():
+    def case6():
         g = Graph()
 
         # Create nodes
