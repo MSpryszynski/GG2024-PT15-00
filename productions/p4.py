@@ -1,5 +1,5 @@
 from structure.graph import Graph
-from productions.production import Production
+from productions.production import Production, get_boundary
 from structure.node import Node
 from structure.hyperedge import HyperEdge
 
@@ -33,21 +33,30 @@ class P4(Production):
         n6.h = False
         g = Graph()
 
-        n7 = Node((n1.x + n2.x) / 2, (n1.y + n2.y) / 2, "N7", True)
-        n8 = Node((n3.x + n4.x) / 2, (n3.y + n4.y) / 2, "N8", True)
+        n7 = Node((n1.x + n2.x) / 2, (n1.y + n2.y) / 2, "N7", not get_boundary(boundary_map, n1, n2))
+        n8 = Node((n3.x + n4.x) / 2, (n3.y + n4.y) / 2, "N8", not get_boundary(boundary_map, n3, n4))
         n9 = Node((n1.x + n2.x + n3.x + n4.x) / 4, (n1.y + n2.y + n3.y + n4.y) / 4, "N9", False)
 
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
             g.add_node(n)
 
         edges = [
-            (n1, n6), (n6, n4), (n4, n8), (n8, n3),
-            (n3, n5), (n5, n2), (n2, n7), (n7, n1),
-            (n5, n9), (n6, n9), (n7, n9), (n8, n9),
+            (n1, n6, get_boundary(boundary_map, n1, n6)),
+            (n6, n4, get_boundary(boundary_map, n6, n4)),
+            (n4, n8, get_boundary(boundary_map, n4, n3)),
+            (n8, n3, get_boundary(boundary_map, n4, n3)),
+            (n3, n5, get_boundary(boundary_map, n3, n5)),
+            (n5, n2, get_boundary(boundary_map, n5, n2)),
+            (n2, n7, get_boundary(boundary_map, n1, n2)),
+            (n7, n1, get_boundary(boundary_map, n1, n2)),
+            (n5, n9, False),
+            (n6, n9, False),
+            (n7, n9, False),
+            (n8, n9, False),
         ]
 
-        for u, v in edges:
-            g.add_edge(HyperEdge((u, v), "E"))
+        for u, v, boundary in edges:
+            g.add_edge(HyperEdge((u, v), "E", boundary))
 
         hyper_edges = [
             (n1, n7, n9, n6), (n5, n2, n7, n9),
