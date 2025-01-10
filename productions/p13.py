@@ -42,7 +42,7 @@ class P13(Production):
         g.add_edge(e6)
         g.add_edge(e7)
         g.add_edge(e8)
-        g.add_hyper_edge(e9)
+        g.add_hyper_edge(e9, "P")
 
 
         return g
