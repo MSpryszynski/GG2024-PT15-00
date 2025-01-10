@@ -94,10 +94,10 @@ def case3():
     for u, v, b_param in edges:
         g.add_edge(HyperEdge((u, v), "E", b_param))
 
-    hyper_egdes = [
+    hyper_edges = [
         [(n1, n2, n3, n4), True], [(nt1, nt2, n3, n4), True]
     ]
-    for nodes, r in hyper_egdes:
+    for nodes, r in hyper_edges:
         g.add_hyper_edge(HyperEdge(nodes, 'E', r=r))
 
     draw(g)
@@ -195,10 +195,10 @@ def case5():
     for u, v, b_param in edges:
         g.add_edge(HyperEdge((u, v), "E", b_param))
 
-    hyper_egdes = [
+    hyper_edges = [
         [(n1, n2, n3, n4), True], [(nt1, nt2, n3, n4), True]
     ]
-    for nodes, r in hyper_egdes:
+    for nodes, r in hyper_edges:
         g.add_hyper_edge(HyperEdge(nodes, 'E', r=r))
 
     draw(g)
@@ -236,10 +236,10 @@ def case6():
     for u, v, b_param in edges:
         g.add_edge(HyperEdge((u, v), "E", b_param))
 
-    hyper_egdes = [
+    hyper_edges = [
         [(n1, n2, n3, n4), True], [(nt1, nt2, n3, n4), True]
     ]
-    for nodes, r in hyper_egdes:
+    for nodes, r in hyper_edges:
         g.add_hyper_edge(HyperEdge(nodes, 'E', r=r))
 
     draw(g)
