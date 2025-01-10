@@ -23,11 +23,11 @@ class Graph:
         u, v = edge.nodes
         self._G.add_edge(u, v, boundary=edge.b)
 
-    def add_hyper_edge(self, edge: HyperEdge):
+    def add_hyper_edge(self, edge: HyperEdge, node_label: str = "Q"):
         nodes = edge.nodes
         x = sum([node.x for node in nodes]) / len(nodes)
         y = sum([node.y for node in nodes]) / len(nodes)
-        hyper_node = Node(x, y, "Q", False, True, edge.r)
+        hyper_node = Node(x, y, node_label, False, True, edge.r)
         self.add_node(hyper_node)
         for node in edge.nodes:
             self._G.add_edge(hyper_node, node, boundary=False)
