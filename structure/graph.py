@@ -10,7 +10,7 @@ class Graph:
         self._G = nx.Graph()
 
     def add_node(self, node: Node) -> None:
-        self._G.add_node(node, h=node.h, hyper_r=node.hyper_r)
+        self._G.add_node(node, h=node.h, hyper_r=node.hyper_r, hyper=node.hyper)
         self.ordered_nodes.append(node)
 
     def remove_node(self, node: Node):
