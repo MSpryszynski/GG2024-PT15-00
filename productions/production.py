@@ -15,12 +15,13 @@ def get_boundary_map(graph: Graph):
     for u, v in graph.get_edges():
         data = graph.get().get_edge_data(u, v)
         boundary_map[(u, v)] = data
+        boundary_map[(v, u)] = data
     return boundary_map
 
 
 class Production:
 
-    def apply(self, graph: Graph):
+    def apply(self, graph: Graph, q = None):
         boundary_map = get_boundary_map(graph)
         iso_map = find_isomorphisms(graph.get(), self.left_side().get())
         left: Graph = self.left_side()
