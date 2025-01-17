@@ -19,11 +19,4 @@ def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph) -> list[dict]:
         if labels not in seen_labels:
             seen_labels.add(labels)
             distinct_mappings.append(iso_map)
-    for index, iso_map in enumerate(distinct_mappings):
-        labels = [node.label for node in iso_map.keys()]
-        print(f"Mapping {index}: {labels}")
-
-    selected_index = int(input("Pick the index of the mapping to process: "))
-    selected_mapping = distinct_mappings[selected_index]
-
-    return selected_mapping
+    return distinct_mappings

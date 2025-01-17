@@ -19,10 +19,15 @@ def get_boundary_map(graph: Graph):
 
 
 class Production:
-
-    def apply(self, graph: Graph):
+    def apply(self, graph: Graph, selector = None):
         boundary_map = get_boundary_map(graph)
-        iso_map = find_isomorphisms(graph.get(), self.left_side().get())
+
+        isomorphisms = find_isomorphisms(graph.get(), self.left_side().get())
+        if selector is None and len(isomorphisms) > 0:
+            iso_map = isomorphisms[0]
+        else:
+            iso_map = selector(isomorphisms)
+
         left: Graph = self.left_side()
         ordered_nodes_update = {}
         for v_self, v_left in iso_map.items():
