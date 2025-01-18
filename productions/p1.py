@@ -28,11 +28,11 @@ class P1(Production):
         n1, n2, n3, n4, n5 = iso_ordered_nodes
         g = Graph()
 
-        n5 = Node((n1.x + n2.x) / 2, (n1.y + n2.y) / 2, "N5", not get_boundary(boundary_map, n1, n2))
-        n6 = Node((n2.x + n3.x) / 2, (n2.y + n3.y) / 2, "N6", not get_boundary(boundary_map, n2, n3))
-        n7 = Node((n3.x + n4.x) / 2, (n3.y + n4.y) / 2, "N7", not get_boundary(boundary_map, n3, n4))
-        n8 = Node((n4.x + n1.x) / 2, (n4.y + n1.y) / 2, "N8", not get_boundary(boundary_map, n1, n4))
-        n9 = Node((n1.x + n2.x + n3.x + n4.x) / 4, (n1.y + n2.y + n3.y + n4.y) / 4, "N9", False)
+        n5 = Node((n1.x + n2.x) / 2, (n1.y + n2.y) / 2, None, not get_boundary(boundary_map, n1, n2))
+        n6 = Node((n2.x + n3.x) / 2, (n2.y + n3.y) / 2, None, not get_boundary(boundary_map, n2, n3))
+        n7 = Node((n3.x + n4.x) / 2, (n3.y + n4.y) / 2, None, not get_boundary(boundary_map, n3, n4))
+        n8 = Node((n4.x + n1.x) / 2, (n4.y + n1.y) / 2, None, not get_boundary(boundary_map, n1, n4))
+        n9 = Node((n1.x + n2.x + n3.x + n4.x) / 4, (n1.y + n2.y + n3.y + n4.y) / 4, None, False)
 
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
             g.add_node(n)

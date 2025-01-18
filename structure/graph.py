@@ -5,11 +5,16 @@ from structure.node import Node
 
 
 class Graph:
-    def __init__(self):
+    def __init__(self, is_main=False):
         self.ordered_nodes: list[Node] = []
         self._G = nx.Graph()
+        self.is_main = is_main
+        self.counter = 1
 
     def add_node(self, node: Node) -> None:
+        if not node.label and self.is_main:
+            node.label = f"N{self.counter}"
+            self.counter += 1
         self._G.add_node(node, h=node.h, hyper_r=node.hyper_r, hyper=node.hyper)
         self.ordered_nodes.append(node)
 
