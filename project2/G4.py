@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+from typing import Dict, List
 from plotting.plot import draw
 from productions.p1 import P1
 from productions.p2 import P2
@@ -7,43 +9,60 @@ from structure.graph import Graph
 from structure.hyperedge import HyperEdge
 from structure.node import Node
 
-def selectorFn1(iso):
-    max_x, max_y = 0, 0
-    for iso_dict in iso:
-        for main_graph_node, production_node in iso_dict.items():
-            max_x, max_y = max(max_x, main_graph_node.x), max(max_y, main_graph_node.y)
+@dataclass
+class Point:
+    x: int
+    y: int
 
-    is_first, is_second = False, False
-    for iso_dict in iso:
-        for main_graph_node, production_node in iso_dict.items():
-            if main_graph_node.x == max_x and main_graph_node.y == max_y:
-                is_first = True
-            if main_graph_node.x == max_x and main_graph_node.y != max_y:
-                is_second = True
-        if is_first and is_second:
-            return iso_dict
-        is_first, is_second = False, False
+class IsomorphismSelector:
+    @staticmethod
+    def find_max_coordinates(iso: List[Dict[Node, Node]]) -> Point:
+        max_x, max_y = 0, 0
+        for iso_dict in iso:
+            for main_graph_node, _ in iso_dict.items():
+                max_x = max(max_x, main_graph_node.x)
+                max_y = max(max_y, main_graph_node.y)
+        return Point(max_x, max_y)
 
-    raise Exception("Z wyrazami szacunu")
+    @staticmethod
+    def select_vertical(iso: List[Dict[Node, Node]]) -> Dict[Node, Node]:
+        """Select isomorphism based on vertical alignment"""
+        max_point = IsomorphismSelector.find_max_coordinates(iso)
 
-def selectorFn2(iso):
-    max_x, max_y = 0, 0
-    for iso_dict in iso:
-        for main_graph_node, production_node in iso_dict.items():
-            max_x, max_y = max(max_x, main_graph_node.x), max(max_y, main_graph_node.y)
+        for iso_dict in iso:
+            has_max_point = False
+            has_vertical_point = False
 
-    is_first, is_second = False, False
-    for iso_dict in iso:
-        for main_graph_node, production_node in iso_dict.items():
-            if main_graph_node.x == max_x and main_graph_node.y == max_y:
-                is_first = True
-            if main_graph_node.y == max_y and main_graph_node.x != max_x:
-                is_second = True
-        if is_first and is_second:
-            return iso_dict
-        is_first, is_second = False, False
+            for main_graph_node, _ in iso_dict.items():
+                if main_graph_node.x == max_point.x and main_graph_node.y == max_point.y:
+                    has_max_point = True
+                if main_graph_node.x == max_point.x and main_graph_node.y != max_point.y:
+                    has_vertical_point = True
 
-    raise Exception("Z wyrazami szacunu")
+            if has_max_point and has_vertical_point:
+                return iso_dict
+
+        raise ValueError("No valid isomorphism found for vertical selection")
+
+    @staticmethod
+    def select_horizontal(iso: List[Dict[Node, Node]]) -> Dict[Node, Node]:
+        """Select isomorphism based on horizontal alignment"""
+        max_point = IsomorphismSelector.find_max_coordinates(iso)
+
+        for iso_dict in iso:
+            has_max_point = False
+            has_horizontal_point = False
+
+            for main_graph_node, _ in iso_dict.items():
+                if main_graph_node.x == max_point.x and main_graph_node.y == max_point.y:
+                    has_max_point = True
+                if main_graph_node.y == max_point.y and main_graph_node.x != max_point.x:
+                    has_horizontal_point = True
+
+            if has_max_point and has_horizontal_point:
+                return iso_dict
+
+        raise ValueError("No valid isomorphism found for horizontal selection")
 
 class G4:
     @staticmethod
@@ -120,24 +139,25 @@ class G4:
         g.add_hyper_edge(e24)
         g.add_hyper_edge(e25)
 
-        # draw(g)
-        P7().apply(g, selectorFn1)
-        # draw(g)
-        P1().apply(g)
-        # draw(g)
-        P7().apply(g, selectorFn1)
-        # draw(g)
-        P8().apply(g, selectorFn2)
-        # draw(g)
-        P2().apply(g)
-        # draw(g)
-        P1().apply(g)
-        # draw(g)
-        P7().apply(g, selectorFn1)
-        # draw(g)
-        P8().apply(g, selectorFn2)
-        # draw(g)
-        P2().apply(g)
-        # draw(g)
-        P1().apply(g)
+        # Define productions
+        productions = [
+            (P7(), IsomorphismSelector.select_vertical),
+            (P1(), None),
+            (P7(), IsomorphismSelector.select_vertical),
+            (P8(), IsomorphismSelector.select_horizontal),
+            (P2(), None),
+            (P1(), None),
+            (P7(), IsomorphismSelector.select_vertical),
+            (P8(), IsomorphismSelector.select_horizontal),
+            (P2(), None),
+            (P1(), None)
+        ]
+
+        # Apply productions and draw after each step
         draw(g)
+        for production, selector in productions:
+            if selector:
+                production.apply(g, selector)
+            else:
+                production.apply(g)
+            draw(g)
