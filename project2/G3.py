@@ -1,6 +1,8 @@
 from plotting.plot import draw
 from productions.p7 import P7
 from productions.p1 import P1
+from productions.p8 import P8
+from productions.p10 import P10
 from structure.graph import Graph
 from structure.hyperedge import HyperEdge
 from structure.node import Node
@@ -9,48 +11,55 @@ from structure.node import Node
 class G3:
     @staticmethod
     def run():
-        g = Graph()
-        n1 = Node(0, 0, "N1", False)
-        n2 = Node(12, 0, "N2", False)
-        n3 = Node(12, 12, "N3", False)
-        n4 = Node(0, 12, "N4", False)
-        n6 = Node(4, 3, "N6", False)
-        n7 = Node(8, 3, "N7", False)
-        n8 = Node(10, 6, "N8", False)
-        n9 = Node(8, 9, "N9", False)
-        n10 = Node(4, 9, "N10", False)
-        n12 = Node(12, 6, "N12", False)
+        g = Graph(is_main=True)
+
+        def create_node(x, y):
+            node = Node(x, y, None, False)
+            return node
+
+        n1 = create_node(0, 0)
+        n2 = create_node(12, 0)
+        n3 = create_node(12, 12)
+        n4 = create_node(0, 12)
+        n5 = create_node(4, 3)
+        n6 = create_node(8, 3)
+        n7 = create_node(10, 6)
+        n8 = create_node(8, 9)
+        n9 = create_node(4, 9)
+        n10 = create_node(12, 6)
+
         e1 = HyperEdge((n1, n2), 'E', True, False)
-        e2 = HyperEdge((n1, n4), 'E', False, False)
-        e3 = HyperEdge((n2, n12), 'E', False, False)
-        e4 = HyperEdge((n4, n3), 'E', False, False)
-        e5 = HyperEdge((n10, n6), 'E', False, False)
-        e6 = HyperEdge((n6, n7), 'E', False, False)
-        e7 = HyperEdge((n7, n8), 'E', False, False)
-        e8 = HyperEdge((n8, n9), 'E', False, False)
-        e9 = HyperEdge((n9, n10), 'E', False, False)
-        e10 = HyperEdge((n12, n8), 'E', False, False)
-        e12 = HyperEdge((n12, n3), 'E', False, False)
-        e15 = HyperEdge((n4, n10), 'E', False, False)
-        e16 = HyperEdge((n3, n9), 'E', False, False)
-        e17 = HyperEdge((n2, n7), 'E', False, False)
-        e18 = HyperEdge((n1, n6), 'E', False, False)
-        e19 = HyperEdge((n1, n6, n10, n4), 'E', False, False)
-        e20 = HyperEdge((n2, n7, n8, n12), 'E', False, False)
-        e21 = HyperEdge((n4, n3, n9, n10), 'E', False, False)
-        e22 = HyperEdge((n6, n7, n8, n9, n10), 'E', False, False)
-        e24 = HyperEdge((n12, n8, n9, n3), 'E', False, False)
-        e25 = HyperEdge((n1, n2, n7, n6), 'E', False, False)
+        e2 = HyperEdge((n1, n4), 'E', True, False)
+        e3 = HyperEdge((n2, n10), 'E', True, False)
+        e4 = HyperEdge((n4, n3), 'E', True, False)
+        e5 = HyperEdge((n9, n5), 'E', False, False)
+        e6 = HyperEdge((n5, n6), 'E', True, False)
+        e7 = HyperEdge((n6, n7), 'E', True, False)
+        e8 = HyperEdge((n7, n8), 'E', True, False)
+        e9 = HyperEdge((n8, n9), 'E', True, False)
+        e10 = HyperEdge((n10, n7), 'E', True, False)
+        e12 = HyperEdge((n10, n3), 'E', True, False)
+        e15 = HyperEdge((n4, n9), 'E', True, False)
+        e16 = HyperEdge((n3, n8), 'E', True, False)
+        e17 = HyperEdge((n2, n6), 'E', True, False)
+        e18 = HyperEdge((n1, n5), 'E', True, False)
+        e19 = HyperEdge((n1, n5, n9, n4), 'E', True, False)
+        e20 = HyperEdge((n2, n6, n7, n10), 'E', True, False)
+        e21 = HyperEdge((n4, n3, n8, n9), 'E', True, False)
+        e22 = HyperEdge((n5, n6, n7, n8, n9), 'E', True, False)
+        e24 = HyperEdge((n10, n7, n8, n3), 'E', True, False)
+        e25 = HyperEdge((n1, n2, n6, n5), 'E', True, False)
+
         g.add_node(n1)
         g.add_node(n2)
         g.add_node(n3)
         g.add_node(n4)
+        g.add_node(n5)
         g.add_node(n6)
         g.add_node(n7)
         g.add_node(n8)
         g.add_node(n9)
         g.add_node(n10)
-        g.add_node(n12)
         g.add_edge(e1)
         g.add_edge(e2)
         g.add_edge(e3)
@@ -73,9 +82,14 @@ class G3:
         g.add_hyper_edge(e24)
         g.add_hyper_edge(e25)
 
-
         draw(g)
         P7().apply(g)
         draw(g)
         P1().apply(g)
+        draw(g)
+        P7().apply(g)
+        draw(g)
+        P8().apply(g)
+        draw(g)
+        P10().apply(g)
         draw(g)
