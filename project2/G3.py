@@ -2,6 +2,9 @@ from plotting.plot import draw
 from productions.p7 import P7
 from productions.p1 import P1
 from productions.p8 import P8
+from productions.p8v2 import P8v2
+from productions.p2 import P2
+from productions.p3 import P3
 from productions.p10 import P10
 from structure.graph import Graph
 from structure.hyperedge import HyperEdge
@@ -89,7 +92,18 @@ class G3:
         draw(g)
         P7().apply(g)
         draw(g)
-        P8().apply(g)
+        P8v2().apply(g)
         draw(g)
         P10().apply(g)
         draw(g)
+        P1().apply(g)
+        draw(g)
+        P7().apply(g)
+        draw(g)
+        P8().apply(g)
+        draw(g)
+        P2().apply(g)
+        draw(g)
+        P1().apply(g)
+        draw(g)
+
