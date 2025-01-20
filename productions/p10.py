@@ -1,5 +1,5 @@
 from structure.graph import Graph
-from productions.production import Production
+from productions.production import Production, get_boundary
 from structure.node import Node
 from structure.hyperedge import HyperEdge
 import math
@@ -60,11 +60,11 @@ class P10(Production):
 
         # Create new nodes
         new_nodes = [
-            Node(x7, y7, "N7", h=not boundary_map[(n2, n5)]["boundary"]),
-            Node(x8, y8, "N8", h=not boundary_map[(n3, n5)]["boundary"]),
-            Node(x9, y9, "N9", h=not boundary_map[(n3, n4)]["boundary"]),
-            Node(x10, y10, "N10", h=not boundary_map[(n1, n4)]["boundary"]),
-            Node(x11, y11, "N11", h = False)
+            Node(x7, y7, "N7", h=not get_boundary(boundary_map, n2, n5)),
+            Node(x8, y8, "N8", h=not get_boundary(boundary_map, n3, n5)),
+            Node(x9, y9, "N9", h=not get_boundary(boundary_map, n3, n4)),
+            Node(x10, y10, "N10", h=not get_boundary(boundary_map, n1, n4)),
+            Node(x11, y11, "N11", h=False)
         ]
 
         for n in new_nodes:
@@ -72,16 +72,16 @@ class P10(Production):
 
         # Create edges
         out_edges = [
-            (n1, n6, boundary_map[(n1, n6)]["boundary"]),
-            (n6, n2, boundary_map[(n1, n6)]["boundary"]),
-            (n2, new_nodes[0], boundary_map[(n2, n5)]["boundary"]),
-            (new_nodes[0], n5, boundary_map[(n2, n5)]["boundary"]),
-            (n5, new_nodes[1], boundary_map[(n3, n5)]["boundary"]),
-            (new_nodes[1], n3, boundary_map[(n3, n5)]["boundary"]),
-            (n3, new_nodes[2], boundary_map[(n3, n4)]["boundary"]),
-            (new_nodes[2], n4, boundary_map[(n3, n4)]["boundary"]),
-            (n4, new_nodes[3], boundary_map[(n1, n4)]["boundary"]),
-            (new_nodes[3], n1, boundary_map[(n1, n4)]["boundary"])
+            (n1, n6, get_boundary(boundary_map, n1, n6)),
+            (n6, n2, get_boundary(boundary_map, n1, n6)),
+            (n2, new_nodes[0], get_boundary(boundary_map, n2, n5)),
+            (new_nodes[0], n5, get_boundary(boundary_map, n2, n5)),
+            (n5, new_nodes[1], get_boundary(boundary_map, n3, n5)),
+            (new_nodes[1], n3, get_boundary(boundary_map, n3, n5)),
+            (n3, new_nodes[2], get_boundary(boundary_map, n3, n4)),
+            (new_nodes[2], n4, get_boundary(boundary_map, n3, n4)),
+            (n4, new_nodes[3], get_boundary(boundary_map, n1, n4)),
+            (new_nodes[3], n1, get_boundary(boundary_map, n1, n4))
         ]
 
         for u, v, b in out_edges:

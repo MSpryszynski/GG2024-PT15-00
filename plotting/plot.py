@@ -13,7 +13,7 @@ def draw(g: Graph) -> None:
 
     nx.draw_networkx_nodes(g.get(), coords, node_size=200, edgecolors="black", linewidths=2, alpha=0.5)
     nx.draw_networkx_edges(g.get(), coords, width=3, alpha=0.3)
-    nx.draw_networkx_labels(g.get(), label_positions, labels)
+    nx.draw_networkx_labels(g.get(), label_positions, labels, font_size=8)
 
     edge_labels = {}
     for u, v in g.get_edges():
