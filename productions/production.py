@@ -21,9 +21,9 @@ def get_boundary_map(graph: Graph):
 
 class Production:
 
-    def apply(self, graph: Graph, q = None):
+    def apply(self, graph: Graph, q = None, auto = False):
         boundary_map = get_boundary_map(graph)
-        iso_map = find_isomorphisms(graph.get(), self.left_side().get())
+        iso_map = find_isomorphisms(graph.get(), self.left_side().get(), q, auto)
         left: Graph = self.left_side()
         ordered_nodes_update = {}
         for v_self, v_left in iso_map.items():

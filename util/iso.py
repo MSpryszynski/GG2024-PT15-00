@@ -8,7 +8,7 @@ def node_matcher(u, v):
     return u["h"] == v["h"] and u["hyper_r"] == v["hyper_r"] and u["hyper"] == v["hyper"]
 
 
-def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph) -> list[dict]:
+def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph, q = None, auto = False) -> list[dict]:
     matcher = GraphMatcher(graph, subgraph,
                            node_match=node_matcher)
     distinct_mappings = []
@@ -19,9 +19,17 @@ def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph) -> list[dict]:
         if labels not in seen_labels:
             seen_labels.add(labels)
             distinct_mappings.append(iso_map)
+            if q is not None:
+                for node in iso_map.keys():
+                    if node == q:
+                        return iso_map
+
     for index, iso_map in enumerate(distinct_mappings):
         labels = [node.label for node in iso_map.keys()]
         print(f"Mapping {index}: {labels}")
+
+    if auto:
+        return distinct_mappings[0]
 
     selected_index = int(input("Pick the index of the mapping to process: "))
     selected_mapping = distinct_mappings[selected_index]

@@ -26,7 +26,7 @@ def get_closest_node(coords, graph: Graph):
             closest = dist
     return curr_node
 
-class G3:
+class G1:
     @staticmethod
     def run():
         g = Graph()
@@ -63,7 +63,7 @@ class G3:
         control_coords_right = (3, 2)
         control_coords_left = get_middle_node_coords([n5, n6, n7, n8, n9])
 
-        new_coords = ((control_coords_right[0] + control_coords_left)/ 2, 2)
+        new_coords = ((control_coords_right[0] + control_coords_left[0])/ 2, 2)
 
 
         for nodes, r in hyper_edges:
@@ -75,21 +75,21 @@ class G3:
                 g.add_hyper_edge(HyperEdge((u, v, w, x, y), "Q", r=r))
 
         draw(g)
-        P16().apply(g)
+        P16().apply(g, auto=True)
         draw(g)
-        P9().apply(g)
+        P9().apply(g, auto=True)
         draw(g)
         for i in range(2):
             q = get_closest_node(new_coords, g)
             P7().apply(g, q)
             draw(g)
-            P8().apply(g)
+            P8().apply(g, auto=True)
             draw(g)
-            P8().apply(g)
+            P8().apply(g, auto=True)
             draw(g)
-            P2().apply(g)
+            P2().apply(g, auto=True)
             draw(g)
-            P3().apply(g)
+            P3().apply(g, auto=True)
             draw(g)
-            P1().apply(g)
+            P1().apply(g, auto=True)
             draw(g)
