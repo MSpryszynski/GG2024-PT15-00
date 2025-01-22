@@ -24,12 +24,12 @@ def find_isomorphisms(graph: nx.Graph, subgraph: nx.Graph, q = None, auto = Fals
                     if node == q:
                         return iso_map
 
+    if auto:
+        return distinct_mappings[0]
+
     for index, iso_map in enumerate(distinct_mappings):
         labels = [node.label for node in iso_map.keys()]
         print(f"Mapping {index}: {labels}")
-
-    if auto:
-        return distinct_mappings[0]
 
     selected_index = int(input("Pick the index of the mapping to process: "))
     selected_mapping = distinct_mappings[selected_index]

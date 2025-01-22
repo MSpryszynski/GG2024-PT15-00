@@ -93,3 +93,5 @@ class G1:
             draw(g)
             P1().apply(g, auto=True)
             draw(g)
+            control_coords_left = new_coords
+            new_coords = ((control_coords_right[0] + control_coords_left[0]) / 2, 2)
