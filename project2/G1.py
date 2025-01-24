@@ -9,22 +9,9 @@ from productions.p9 import P9
 from structure.graph import Graph
 from structure.hyperedge import HyperEdge
 from structure.node import Node
-from math import inf
 
-from util.calculations import get_middle_node_coords
+from util.calculations import get_middle_node_coords, get_closest_node
 
-
-def get_closest_node(coords, graph: Graph):
-    x, y = coords
-    closest = inf
-    curr_node = None
-
-    for node in graph.get_nodes():
-        dist = (node.x - x)**2 + (node.y - y)**2
-        if dist < closest:
-            curr_node = node
-            closest = dist
-    return curr_node
 
 class G1:
     @staticmethod
