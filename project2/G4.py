@@ -44,26 +44,6 @@ class IsomorphismSelector:
 
         raise ValueError("No valid isomorphism found for vertical selection")
 
-    @staticmethod
-    def select_horizontal(iso: List[Dict[Node, Node]]) -> Dict[Node, Node]:
-        """Select isomorphism based on horizontal alignment"""
-        max_point = IsomorphismSelector.find_max_coordinates(iso)
-
-        for iso_dict in iso:
-            has_max_point = False
-            has_horizontal_point = False
-
-            for main_graph_node, _ in iso_dict.items():
-                if main_graph_node.x == max_point.x and main_graph_node.y == max_point.y:
-                    has_max_point = True
-                if main_graph_node.y == max_point.y and main_graph_node.x != max_point.x:
-                    has_horizontal_point = True
-
-            if has_max_point and has_horizontal_point:
-                return iso_dict
-
-        raise ValueError("No valid isomorphism found for horizontal selection")
-
 class G4:
     @staticmethod
     def run():
@@ -144,11 +124,11 @@ class G4:
             (P7(), IsomorphismSelector.select_vertical),
             (P1(), None),
             (P7(), IsomorphismSelector.select_vertical),
-            (P8(), IsomorphismSelector.select_horizontal),
+            (P8(), None),
             (P2(), None),
             (P1(), None),
             (P7(), IsomorphismSelector.select_vertical),
-            (P8(), IsomorphismSelector.select_horizontal),
+            (P8(), None),
             (P2(), None),
             (P1(), None)
         ]
